@@ -2,14 +2,13 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { Menu, X, ArrowRight, Instagram, Twitter, Mail, Palette, Monitor, PenTool, Zap, Heart, Briefcase, Video, MessageCircle, Image, Gamepad, Diamond, Filter, ArrowUpWideNarrow, CalendarDays } from 'lucide-react';
 
 /**
- * Yeenki'Ink Studio - Professional Web Concept (Azuki-inspired)
- * Dibuat dalam satu file React Component (App.jsx)
- * Style: Bold, Minimalist, Premium
+ * Yeenki'Ink Studio - Professional Web Concept
+ * Style: Azuki-inspired (Bold, Minimalist, Premium)
  * Color Palette: Black (#0a0a0a), Pink (#bd5582), Lavender (#ba7cd9)
  */
 
-// --- DATA STATIS & ASET ---
-// Catatan: Placeholder gambar digunakan untuk tujuan pratinjau.
+// --- STATIC DATA & ASSETS ---
+// Note: Placeholder images are used for preview purposes.
 
 const teamData = [
 	{
@@ -49,7 +48,7 @@ const servicesData = [
 	{ title: "Asset Illustrations", category: "Asset Illustrations" },
 ];
 
-// Menambahkan properti isFeatured untuk mengontrol apa yang ditampilkan di Marquee.
+// PENYESUAIAN STRATEGIS: Menambahkan properti isFeatured untuk mengontrol apa yang ditampilkan di Marquee.
 const portfolioItemsData = [
 	{ id: 1, category: "OC & Fan Art", title: "Streetwear OC Showcase", src: "https://placehold.co/600x800/111/bd5582?text=Streetwear+OC", date: '2025-05-10', serial: 101, isFeatured: true },	
 	{ id: 2, category: "Character Design/Concept", title: "Aqua Siren Concept", src: "https://placehold.co/600x800/111/ba7cd9?text=Aqua+Siren", date: '2025-06-15', serial: 105, isFeatured: true },
@@ -64,12 +63,11 @@ const portfolioItemsData = [
 
 const categories = ["All", ...new Set(portfolioItemsData.map(item => item.category))];
 
-// --- KOMPONEN HALAMAN PORTOFOLIO ---
+// --- PORTFOLIO PAGE COMPONENT ---
 const PortfolioPage = ({ setPage }) => {
 	const [selectedCategory, setSelectedCategory] = useState("All");
 	const [sortBy, setSortBy] = useState("dateDesc");
 	
-	// Filter dan sorting item portofolio berdasarkan kategori dan kriteria sorting
 	const filteredAndSortedItems = useMemo(() => {
 		let filtered = portfolioItemsData;
 		if (selectedCategory !== "All") {
@@ -78,15 +76,15 @@ const PortfolioPage = ({ setPage }) => {
 		const sorted = [...filtered].sort((a, b) => {
 			if (sortBy === "serialAsc") return a.serial - b.serial;
 			if (sortBy === "dateAsc") return new Date(a.date) - new Date(b.date);
-			return new Date(b.date) - new Date(a.date); // Default: dateDesc
+			return new Date(b.date) - new Date(a.date);
 		});
 		return sorted;
 	}, [selectedCategory, sortBy]);
 
 	const getSortLabel = (key) => {
-		if (key === "dateDesc") return "Tanggal Terbaru";
-		if (key === "dateAsc") return "Tanggal Terlama";
-		if (key === "serialAsc") return "Nomor Serial";
+		if (key === "dateDesc") return "Latest Date";
+		if (key === "dateAsc") return "Oldest Date";
+		if (key === "serialAsc") return "Serial Number";
 		return "";
 	};
 
@@ -94,19 +92,18 @@ const PortfolioPage = ({ setPage }) => {
 		<section className="min-h-screen bg-[#0a0a0a] pt-32 pb-16">
 			<div className="container mx-auto px-6">
 				<div className="flex justify-between items-center mb-10 border-b border-neutral-800 pb-6">
-					<h1 className="font-display text-4xl sm:text-6xl font-bold uppercase text-[#bd5582]">Portofolio</h1>
+					<h1 className="font-display text-4xl sm:text-6xl font-bold uppercase text-[#bd5582]">Portfolio</h1>
 					<button	
 						onClick={() => setPage('home')}
 						className="text-sm text-neutral-400 hover:text-white transition-colors flex items-center gap-1 uppercase tracking-widest"
 					>
-						<ArrowRight size={16} className="rotate-180" /> Kembali ke Home
+						<ArrowRight size={16} className="rotate-180" /> Back to Home
 					</button>
 				</div>
 
 				<div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-12">
-					{/* Tombol Filter Kategori */}
 					<div className="flex flex-wrap gap-2">
-						<span className="text-neutral-500 font-bold uppercase text-xs flex items-center gap-1.5"><Filter size={16} /> Kategori:</span>
+						<span className="text-neutral-500 font-bold uppercase text-xs flex items-center gap-1.5"><Filter size={16} /> Category:</span>
 						{categories.map((cat) => (
 							<button
 								key={cat}
@@ -122,10 +119,9 @@ const PortfolioPage = ({ setPage }) => {
 						))}
 					</div>
 
-					{/* Dropdown Sorting */}
 					<div className="relative group z-30">
 						<button className="flex items-center gap-2 px-3 py-1 border border-neutral-700 text-neutral-300 hover:border-[#bd5582] transition-colors text-sm uppercase">
-							<ArrowUpWideNarrow size={16} /> Urutkan: {getSortLabel(sortBy)}
+							<ArrowUpWideNarrow size={16} /> Sort By: {getSortLabel(sortBy)}
 						</button>
 						<div className="absolute right-0 mt-2 w-48 bg-neutral-800 border border-neutral-700 shadow-xl z-20 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-300 hidden group-hover:block group-focus-within:block">
 							{["dateDesc", "dateAsc", "serialAsc"].map((key) => (
@@ -142,7 +138,6 @@ const PortfolioPage = ({ setPage }) => {
 					</div>
 				</div>
 
-				{/* Grid Portofolio */}
 				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
 					{filteredAndSortedItems.map((item) => (
 						<div key={item.id} className="relative overflow-hidden rounded-lg shadow-xl border border-neutral-800 transition-transform duration-300 hover:scale-[1.03] group h-80">
@@ -156,13 +151,13 @@ const PortfolioPage = ({ setPage }) => {
 								<h4 className="font-display text-2xl font-bold text-white uppercase leading-tight">{item.title}</h4>
 								<div className="flex justify-between text-neutral-400 text-xs mt-2">
 									<span>Serial: {item.serial}</span>
-									<span>Tanggal: {item.date}</span>
+									<span>Date: {item.date}</span>
 								</div>
 							</div>
 						</div>
 					))}
 					{filteredAndSortedItems.length === 0 && (
-							<p className="text-neutral-500 col-span-full text-center py-10">Tidak ada karya yang cocok dengan filter saat ini.</p>
+							<p className="text-neutral-500 col-span-full text-center py-10">No works match the current filters.</p>
 					)}
 				</div>
 			</div>
@@ -170,7 +165,7 @@ const PortfolioPage = ({ setPage }) => {
 	);
 };
 
-// --- KOMPONEN KARTU TIM ---
+// --- TEAM CARD COMPONENT ---
 const TeamCard = ({ member }) => {
 	const sizeClass = member.isMain ? 'w-48 h-48 md:w-64 md:h-64' : 'w-36 h-36 md:w-48 md:h-48';
 	const nameSizeClass = member.isMain ? 'text-3xl md:text-4xl' : 'text-2xl md:text-3xl';
@@ -204,21 +199,21 @@ const TeamCard = ({ member }) => {
 	);
 };
 
-// --- KOMPONEN FOOTER ---
+// --- FOOTER COMPONENT (New) ---
 const Footer = ({ setPage }) => {
     return (
         <footer className="relative bg-[#080808] border-t border-neutral-900 overflow-hidden">
-            {/* Konten Utama Footer */}
+            {/* Main Footer Content */}
             <div className="container mx-auto px-6 pt-20 pb-10">
                 <div className="flex flex-col lg:flex-row justify-between items-start gap-12 lg:gap-0">
                     
-                    {/* KOLOM KIRI: Newsletter */}
+                    {/* LEFT COLUMN: Newsletter */}
                     <div className="lg:w-1/3 z-10">
                         <h2 className="font-display text-4xl font-bold uppercase text-[#bd5582] mb-4 tracking-wider">
                             YEENKI'INK
                         </h2>
                         <p className="text-xs font-bold text-neutral-400 uppercase tracking-widest mb-4">
-                            Daftar untuk daftar email
+                            Sign up for the mailing list
                         </p>
                         <div className="flex items-center max-w-sm">
                             <input 
@@ -232,9 +227,11 @@ const Footer = ({ setPage }) => {
                         </div>
                     </div>
 
-                    {/* KOLOM TENGAH: Ilustrasi Karakter (Absolute Positioning untuk tampilan) */}
+                    {/* CENTER COLUMN: Character Illustration (Absolute Positioning for look) */}
                     <div className="hidden lg:flex absolute bottom-0 left-1/2 -translate-x-1/2 items-end justify-center pointer-events-none z-0">
-                        {/* Placeholder untuk ilustrasi karakter duduk */}
+                        {/* This placeholder represents the sitting character from the Azuki design.
+                            In a real scenario, this would be a transparent PNG of the character sitting.
+                        */}
                         <img 
                             src="https://placehold.co/400x500/0a0a0a/bd5582?text=Character+Art" 
                             alt="Mascot" 
@@ -243,33 +240,33 @@ const Footer = ({ setPage }) => {
                         />
                     </div>
 
-                    {/* KOLOM KANAN: Grid Tautan */}
+                    {/* RIGHT COLUMN: Links Grid */}
                     <div className="lg:w-1/3 flex justify-between gap-12 w-full lg:w-auto z-10">
-                        {/* Grup 1 */}
+                        {/* Group 1 */}
                         <div className="space-y-10">
                             <div>
-                                <h3 className="font-display text-2xl text-white font-bold uppercase mb-4">Tentang Kami</h3>
+                                <h3 className="font-display text-2xl text-white font-bold uppercase mb-4">About Us</h3>
                                 <ul className="space-y-2 text-neutral-400 font-body text-sm">
                                     <li className="hover:text-[#bd5582] cursor-pointer transition-colors">Manifesto</li>
-                                    <li className="hover:text-[#bd5582] cursor-pointer transition-colors">Tim & Artis</li>
-                                    <li className="hover:text-[#bd5582] cursor-pointer transition-colors">Komunitas</li>
+                                    <li className="hover:text-[#bd5582] cursor-pointer transition-colors">Team & Artist</li>
+                                    <li className="hover:text-[#bd5582] cursor-pointer transition-colors">Communities</li>
                                 </ul>
                             </div>
                             <div>
-                                <h3 className="font-display text-2xl text-white font-bold uppercase mb-4">Spesialisasi</h3>
+                                <h3 className="font-display text-2xl text-white font-bold uppercase mb-4">Specialist</h3>
                                 <ul className="space-y-2 text-neutral-400 font-body text-sm">
-                                    <li className="hover:text-[#bd5582] cursor-pointer transition-colors" onClick={() => setPage('services')}>Keahlian Kami</li>
-                                    <li className="hover:text-[#bd5582] cursor-pointer transition-colors" onClick={() => setPage('portfolio')}>Karya & Proyek</li>
+                                    <li className="hover:text-[#bd5582] cursor-pointer transition-colors" onClick={() => setPage('services')}>Our Expertise</li>
+                                    <li className="hover:text-[#bd5582] cursor-pointer transition-colors" onClick={() => setPage('portfolio')}>Work & Projects</li>
                                 </ul>
                             </div>
                         </div>
 
-                        {/* Grup 2 */}
+                        {/* Group 2 */}
                         <div>
-                            <h3 className="font-display text-2xl text-white font-bold uppercase mb-4">Lainnya</h3>
+                            <h3 className="font-display text-2xl text-white font-bold uppercase mb-4">Other</h3>
                             <ul className="space-y-2 text-neutral-400 font-body text-sm">
-                                <li className="hover:text-[#bd5582] cursor-pointer transition-colors">Lisensi</li>
-                                <li className="hover:text-[#bd5582] cursor-pointer transition-colors">Syarat & Ketentuan</li>
+                                <li className="hover:text-[#bd5582] cursor-pointer transition-colors">License</li>
+                                <li className="hover:text-[#bd5582] cursor-pointer transition-colors">Terms & Conditions</li>
                             </ul>
                         </div>
                     </div>
@@ -277,10 +274,10 @@ const Footer = ({ setPage }) => {
                 </div>
             </div>
             
-            {/* Hak Cipta / Bar Bawah */}
+            {/* Copyright / Bottom Bar */}
             <div className="w-full text-center py-4 border-t border-neutral-900 bg-black relative z-10">
                 <p className="text-neutral-600 text-[10px] uppercase tracking-widest">
-                    &copy; 2025 Yeenki'Ink Studio. Semua Hak Dilindungi.
+                    &copy; 2025 Yeenki'Ink Studio. All Rights Reserved.
                 </p>
             </div>
         </footer>
@@ -288,35 +285,32 @@ const Footer = ({ setPage }) => {
 };
 
 
-// --- KOMPONEN UTAMA APLIKASI ---
+// --- MAIN APP COMPONENT ---
 export default function App() {
 	const [isScrolled, setIsScrolled] = useState(false);
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const [activeService, setActiveService] = useState(0);
 	const [page, setPage] = useState('home');
 
-	// Efek untuk mendeteksi scroll dan mengubah navbar
 	useEffect(() => {
 		const handleScroll = () => setIsScrolled(window.scrollY > 50);
 		window.addEventListener('scroll', handleScroll);
 		return () => window.removeEventListener('scroll', handleScroll);
 	}, []);
 
-	// Detail layanan yang diperluas
 	const services = servicesData.map((s, index) => ({
 		...s,
-		desc: index === 0 ? "Layanan ilustrasi untuk karakter asli (OC) dan Fan Art untuk branding pribadi, kebutuhan komunitas, atau hadiah. Fokus pada detail artistik dan daya tarik visual untuk meningkatkan keterlibatan." :	
-			index === 1 ? "Produksi ilustrasi konten dewasa R/18+ yang menekankan kualitas anatomis dan naratif. Ditujukan untuk monetisasi melalui platform langganan (Patreon, Fanbox) atau komisi privat khusus." :
-			index === 2 ? "Pengembangan karakter mendalam dari konsep awal hingga aset akhir (turnarounds, sheets). Kunci untuk membangun identitas visual Intellectual Property (IP) yang kuat dan siap produksi." :	
-			"Pembuatan aset visual terpisah, seperti properti, latar belakang, item, dan elemen UI/UX, siap diintegrasikan ke dalam game, merchandise, atau materi pemasaran. Menjamin konsistensi dalam skala dan kualitas.",
+		desc: index === 0 ? "Illustration services for original characters (OC) and Fan Art for personal branding, community needs, or gifts. Focus on artistic detail and visual appeal to boost engagement." :	
+			index === 1 ? "Production of R/18+ adult content illustrations emphasizing anatomical and narrative quality. Intended for monetization through subscription platforms (Patreon, Fanbox) or special private commissions." :
+			index === 2 ? "In-depth character development from initial concept to final assets (turnarounds, sheets). Key to building a strong, production-ready Intellectual Property (IP) visual identity." :	
+			"Creation of separate visual assets, such as props, backgrounds, items, and UI/UX elements, ready to be integrated into games, merchandise, or marketing materials. Guarantees consistency in scale and quality.",
 		icon: index === 0 ? <Image className="w-6 h-6" /> : index === 1 ? <Heart className="w-6 h-6" /> : index === 2 ? <PenTool className="w-6 h-6" /> : <Palette className="w-6 h-6" />,
 	}));
 	
-    // Mengambil item yang ditandai sebagai 'isFeatured' untuk Marquee
+    // PENGAMBILAN DATA STRATEGIS: Hanya mengambil item yang ditandai sebagai 'isFeatured'
 	const featuredItems = useMemo(() => portfolioItemsData.filter(item => item.isFeatured), []);
 	
 
-	// Tautan Sosial Media
 	const socialLinks = [
 		{ name: "Twitter / X", url: "#", icon: <Twitter size={18} /> },
 		{ name: "Instagram", url: "#", icon: <Instagram size={18} /> },
@@ -326,13 +320,12 @@ export default function App() {
 		{ name: "Fiverr", url: "#", icon: <Briefcase size={18} /> },
 	];
 	
-	// Komponen Marquee Portofolio
 	const PortfolioMarquee = ({ items }) => {
+        // Cek jika tidak ada item untuk Marquee
         if (items.length === 0) return null; 
 
 		const row1 = items.slice(0, Math.ceil(items.length / 2));
 		const row2 = items.slice(Math.ceil(items.length / 2));
-		// Duplikasi item untuk efek marquee tak terbatas
 		const marqueeItems1 = [...row1, ...row1, ...row1, ...row1];	
 		const marqueeItems2 = [...row2, ...row2, ...row2, ...row2];	
 
@@ -340,9 +333,9 @@ export default function App() {
 			<div className="py-20 bg-[#121212] overflow-hidden border-y border-neutral-900">
 				<div className="text-center mb-12">
 					<h3 className="font-display text-4xl md:text-6xl font-bold uppercase text-[#bd5582] tracking-tighter">
-						Karya Unggulan
+						Featured Works
 					</h3>
-					<p className="font-body text-lg text-neutral-400 mt-2">Aset seni dan konsep visual terbaru kami.</p>
+					<p className="font-body text-lg text-neutral-400 mt-2">Our latest art assets and visual concepts.</p>
 				</div>
 				<div className="relative w-full overflow-hidden whitespace-nowrap mb-6">
 					<div className="flex animate-marquee-right">
@@ -358,7 +351,6 @@ export default function App() {
 		);
 	};
 
-	// Item tunggal dalam Marquee
 	const MarqueeItem = ({ item }) => (
 		<div className="inline-block w-[280px] h-[350px] mx-4 relative overflow-hidden rounded-xl shadow-xl border border-neutral-800 transition-transform duration-300 hover:scale-[1.02] flex-shrink-0 group">
 			<img	
@@ -373,13 +365,11 @@ export default function App() {
 		</div>
 	);
 	
-	// Fungsi scroll halus ke ID section
 	const scrollToSection = (id) => {
 		const element = document.getElementById(id);
 		if (element) element.scrollIntoView({ behavior: 'smooth' });
 	};
 	
-	// Handler navigasi
 	const handleNavClick = (target) => {
 		setIsMenuOpen(false);
 		if (target === 'home') {
@@ -389,10 +379,8 @@ export default function App() {
 			setPage('portfolio');
 			window.scrollTo(0, 0);
 		} else if (page === 'home') {
-			// Jika sudah di halaman home, lakukan scroll
 			scrollToSection(target);
 		} else {
-			// Jika di halaman portofolio, kembali ke home lalu scroll
 			setPage('home');
 			setTimeout(() => scrollToSection(target), 100);
 		}
@@ -401,29 +389,19 @@ export default function App() {
 	return (
 		<div className="min-h-screen bg-[#0a0a0a] text-white font-sans selection:bg-[#bd5582] selection:text-white overflow-x-hidden">
 			<style>{`
-				/* Import Font dari Google Fonts */
 				@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&family=Inter:wght@300;400;600&display=swap');
 				.font-display { font-family: 'Oswald', sans-serif; }
 				.font-body { font-family: 'Inter', sans-serif; }
-				
-				/* Keyframes dan Animasi Marquee */
 				@keyframes marquee-right { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 				.animate-marquee-right { animation: marquee-right 40s linear infinite; }
 				@keyframes marquee-left { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
 				.animate-marquee-left { animation: marquee-left 40s linear infinite; }
 				@keyframes marquee-main-l-to-r { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 				.animate-marquee-main { animation: marquee-main-l-to-r 15s linear infinite; }
-				
-				/* Efek Stroke Text (hanya berfungsi di browser yang mendukung) */
 				.text-stroke-white { -webkit-text-stroke: 1px rgba(255, 255, 255, 0.5); color: transparent; }
 			`}</style>
-            {/* Tailwind CSS dimuat secara eksternal dalam konteks Immersive ini, 
-                namun jika di-host di GitHub, pastikan Anda menggunakan CDN atau build proses Tailwind.
-                Untuk demo ini, kita asumsikan Tailwind tersedia. 
-            */}
 
-
-			{/* --- NAVIGASI --- */}
+			{/* --- NAVIGATION --- */}
 			<nav className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-[#0a0a0a]/90 backdrop-blur-md py-4 shadow-lg border-b border-neutral-900' : 'bg-transparent py-6'}`}>
 				<div className="container mx-auto px-6 flex justify-between items-center">
 					<h1 className="font-display text-2xl font-bold uppercase cursor-pointer tracking-wider text-white" onClick={() => handleNavClick('home')}>
@@ -431,11 +409,11 @@ export default function App() {
 					</h1>
 					<div className="hidden md:flex items-center space-x-8 font-body text-sm tracking-widest uppercase">
 						<button onClick={() => handleNavClick('home')} className="hover:text-[#ba7cd9] transition-colors">Studio</button>
-						<button onClick={() => handleNavClick('about')} className="hover:text-[#ba7cd9] transition-colors">Tentang Kami</button>
-						<button onClick={() => handleNavClick('team')} className="hover:text-[#ba7cd9] transition-colors">Tim & Artis</button>
-						<button onClick={() => handleNavClick('services')} className="hover:text-[#ba7cd9] transition-colors">Karya & Proyek</button>
+						<button onClick={() => handleNavClick('about')} className="hover:text-[#ba7cd9] transition-colors">About US</button>
+						<button onClick={() => handleNavClick('team')} className="hover:text-[#ba7cd9] transition-colors">Team & Artists</button>
+						<button onClick={() => handleNavClick('services')} className="hover:text-[#ba7cd9] transition-colors">Works & Projects</button>
 						<button onClick={() => handleNavClick('contact')} className="px-5 py-2 border border-white rounded-lg hover:bg-[#bd5582] hover:border-[#bd5582] hover:text-white transition-all duration-300">
-							Kontak
+							Contact
 						</button>
 					</div>
 					<button className="md:hidden text-white" onClick={() => setIsMenuOpen(!isMenuOpen)}>
@@ -444,18 +422,18 @@ export default function App() {
 				</div>
 			</nav>
 
-			{/* Overlay Menu Mobile */}
+			{/* Mobile Menu Overlay */}
 			{isMenuOpen && (
 				<div className="fixed inset-0 bg-[#0a0a0a] z-40 flex flex-col items-center justify-center space-y-8 font-display text-2xl uppercase tracking-widest md:hidden">
 					<button onClick={() => handleNavClick('home')} className="hover:text-[#bd5582]">Studio</button>
-					<button onClick={() => handleNavClick('about')} className="hover:text-[#bd5582]">Tentang Kami</button>
-					<button onClick={() => handleNavClick('team')} className="hover:text-[#bd5582]">Tim & Artis</button>
-					<button onClick={() => handleNavClick('services')} className="hover:text-[#bd5582]">Karya & Proyek</button>
-					<button onClick={() => handleNavClick('contact')} className="text-[#bd5582]">Kontak</button>
+					<button onClick={() => handleNavClick('about')} className="hover:text-[#bd5582]">About US</button>
+					<button onClick={() => handleNavClick('team')} className="hover:text-[#bd5582]">Team & Artists</button>
+					<button onClick={() => handleNavClick('services')} className="hover:text-[#bd5582]">Works & Projects</button>
+					<button onClick={() => handleNavClick('contact')} className="text-[#bd5582]">Contact</button>
 				</div>
 			)}
 
-			{/* --- KONTEN HALAMAN --- */}
+			{/* --- PAGE CONTENT --- */}
 			{page === 'portfolio' ? (
 				<>
                     <PortfolioPage setPage={setPage} />
@@ -463,23 +441,23 @@ export default function App() {
                 </>
 			) : (
 				<>
-					{/* SECTION HERO */}
+					{/* HERO SECTION - DIREVISI SESUAI REFERENSI VISUAL */}
 					<section className="relative h-screen flex items-center justify-center overflow-hidden bg-[#0a0a0a]">
 						
-						{/* Teks Latar Belakang Pudar */}
+						{/* Background Fading Text (Meniru EVUL/logo di latar belakang referensi) */}
 						<div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
 							<span className="font-display text-stroke-white text-transparent text-[25vw] opacity-10 tracking-[0.2em] select-none leading-none">
 								INK
 							</span>
 						</div>
 						
-						{/* Overlay Gradient untuk Fokus */}
+						{/* Gradient Overlays untuk meningkatkan fokus */}
 						<div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-[#0a0a0a] z-10"></div>
 						<div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a]/50 via-transparent to-[#0a0a0a]/50 z-10"></div>
 
 						<div className="container mx-auto px-6 relative z-20 text-center flex flex-col items-center h-full justify-center pt-32 pb-20">
 							
-							{/* Placeholder Ilustrasi Utama */}
+							{/* Main Illustration Placeholder (Menggambarkan karakter-karakter dalam referensi) */}
 							<div className="relative w-full max-w-4xl h-[60vh] md:h-[70vh] flex items-end justify-center">
 								<img
 									src="https://placehold.co/800x600/1a1a1a/bd5582?text=ILLUSTRATION+SHOWCASE+by+Yeenki'Ink"
@@ -487,57 +465,57 @@ export default function App() {
 									className="w-full h-full object-contain drop-shadow-2xl"
 								/>
 
-								{/* Tombol Komisi */}
+								{/* Commission Button (Pusat di bawah ilustrasi seperti di referensi) */}
 								<a href="#contact" className="absolute bottom-0 -mb-10 block px-16 py-4 bg-[#222] text-white font-display font-bold uppercase tracking-wider border-2 border-[#bd5582] hover:bg-[#bd5582] hover:text-black transition-all rounded-lg shadow-2xl z-30">
-									Komisi Kami
+									Commission Us
 								</a>
 							</div>
 						</div>
 					</section>
 
-					{/* SECTION MARQUEE PORTOFOLIO */}
+					{/* MARQUEE SECTION - Diperbarui untuk menggunakan featuredItems */}
 					<PortfolioMarquee items={featuredItems} />
 
-					{/* SECTION TENTANG KAMI */}
+					{/* ABOUT SECTION */}
 					<section id="about" className="py-24 bg-[#0a0a0a] relative border-t border-neutral-900">
 						<div className="container mx-auto px-6 flex flex-col md:flex-row items-start gap-16">
 							<div className="md:w-1/3 sticky top-32">
 								<h2 className="font-display text-4xl md:text-5xl font-bold uppercase leading-tight text-white">
-									Seni <span className="text-[#bd5582]">Penceritaan</span> <br /> Visual.
+									The <span className="text-[#bd5582]">Art</span> of <br /> Storytelling.
 								</h2>
 								<div className="w-20 h-1 bg-[#bd5582] mt-6"></div>
 							</div>
 							<div className="md:w-2/3">
 								<p className="font-body text-xl text-gray-300 leading-relaxed mb-6">
-									Di Yeenki'Ink, kami melakukan lebih dari sekadar menggambar. Kami menerjemahkan visi abstrak menjadi aset visual bernilai tinggi. Terinspirasi oleh estetika anime modern dan desain streetwear, kami menjembatani kesenjangan antara seni tradisional dan kebutuhan bisnis digital.
+									At Yeenki'Ink, we do more than just draw. We translate abstract visions into high-value visual assets. Inspired by modern anime aesthetics and streetwear design, we bridge the gap between traditional art and digital business needs.
 								</p>
 								<div className="grid grid-cols-1 gap-8 mt-12 sm:grid-cols-3 border-t border-neutral-800 pt-8">
 									<div>
 										<h3 className="font-display text-4xl font-bold text-white">500+</h3>
-										<p className="text-xs text-[#ba7cd9] uppercase tracking-widest mt-2">Proyek Terkirim</p>
+										<p className="text-xs text-[#ba7cd9] uppercase tracking-widest mt-2">Projects Delivered</p>
 									</div>
 									<div>
 										<h3 className="font-display text-4xl font-bold text-white">99%</h3>
-										<p className="text-xs text-[#ba7cd9] uppercase tracking-widest mt-2">Kepuasan Klien</p>
+										<p className="text-xs text-[#ba7cd9] uppercase tracking-widest mt-2">Client Satisfaction</p>
 									</div>
 									<div>
 										<h3 className="font-display text-4xl font-bold text-white">6+</h3>
-										<p className="text-xs text-[#ba7cd9] uppercase tracking-widest mt-2">Tahun Keahlian</p>
+										<p className="text-xs text-[#ba7cd9] uppercase tracking-widest mt-2">Years of Expertise</p>
 									</div>
 								</div>
 							</div>
 						</div>
 					</section>
 
-					{/* SECTION TIM */}
+					{/* TEAM SECTION */}
 					<section id="team" className="py-24 bg-neutral-900/30 border-y border-neutral-900">
 						<div className="container mx-auto px-6">
 							<div className="text-center mb-16">
 								<h2 className="font-display text-4xl md:text-5xl font-bold uppercase text-white mb-3">
-									Temui <span className="text-[#bd5582]">Artis</span> Kami
+									Meet Our <span className="text-[#bd5582]">Artists</span>
 								</h2>
 								<p className="font-body text-lg text-gray-400">
-									Tim inti yang merancang narasi visual Anda.
+									The core team crafting your visual narratives.
 								</p>
 							</div>
 							
@@ -549,15 +527,14 @@ export default function App() {
 						</div>
 					</section>
 
-					{/* SECTION LAYANAN */}
+					{/* SERVICES SECTION */}
 					<section id="services" className="py-24 bg-[#0a0a0a]">
 						<div className="container mx-auto px-6">
 							<h2 className="font-display text-sm text-[#bd5582] tracking-[0.2em] uppercase mb-12 flex items-center gap-2">
-                                <Zap size={16} /> Keahlian Kami
+                                <Zap size={16} /> Our Expertise
                             </h2>
 							
 							<div className="grid md:grid-cols-2 gap-12">
-								{/* Daftar Layanan */}
 								<div className="space-y-2">
 									{services.map((service, index) => (
 										<div	
@@ -577,7 +554,6 @@ export default function App() {
 									))}
 								</div>
 
-								{/* Detail Layanan Aktif */}
 								<div className="relative h-full min-h-[300px] flex flex-col justify-center p-8 bg-neutral-900/20 border border-neutral-800 rounded-xl shadow-2xl overflow-hidden">
 									<div className="absolute top-0 right-0 p-4 opacity-5 text-[#bd5582] pointer-events-none">
 										<Palette size={200} />
@@ -589,24 +565,23 @@ export default function App() {
 										{services[activeService].desc}
 									</p>
 									<a href="#contact" className="mt-8 self-start text-sm uppercase tracking-widest border-b border-[#bd5582] pb-1 text-white hover:text-[#bd5582] transition-colors relative z-10">
-										Ajukan Pertanyaan Tentang Layanan Ini
+										Inquire About This Service
 									</a>
 								</div>
 							</div>
 						</div>
 					</section>
 
-					{/* PREVIEW KARYA */}
+					{/* WORKS PREVIEW */}
 					<section id="works" className="py-24 bg-[#050505]">
 						<div className="container mx-auto px-6">
 							<div className="flex justify-between items-end mb-16">
-								<h2 className="font-display text-4xl sm:text-5xl font-bold uppercase text-white">Proyek <br/> <span className="text-[#bd5582]">Terpilih</span></h2>
+								<h2 className="font-display text-4xl sm:text-5xl font-bold uppercase text-white">Selected <br/> <span className="text-[#bd5582]">Projects</span></h2>
 								<button onClick={() => setPage('portfolio')} className="hidden md:block font-body text-sm text-gray-400 hover:text-white transition-colors uppercase tracking-widest flex items-center gap-1">
-									Lihat Semua Proyek <ArrowRight size={18} />
+									View All Projects <ArrowRight size={18} />
 								</button>
 							</div>
 
-							{/* Grid Pratinjau Proyek */}
 							<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
 								{services.slice(0, 4).map((service, index) => {
 									const item = portfolioItemsData.find(i => i.category === service.category) || { src: `https://placehold.co/800x600/1a1a1a/bd5582?text=${service.category}` };
@@ -637,30 +612,30 @@ export default function App() {
 							
 							<div className="mt-12 text-center md:hidden">
 								<button onClick={() => setPage('portfolio')} className="font-body text-sm text-white border-b border-white pb-1 uppercase tracking-widest">
-									Lihat Semua Proyek
+									View All Projects
 								</button>
 							</div>
 						</div>
 					</section>
 
-					{/* TEKS MARQUEE BAWAH */}
+					{/* MARQUEE TEXT */}
 					<div className="bg-[#bd5582] py-4 overflow-hidden whitespace-nowrap border-y-4 border-black">
 						<div className="animate-marquee-main inline-block text-[#0a0a0a] font-display font-bold text-xl md:text-2xl uppercase tracking-widest">
-							YEENKI'INK STUDIO — HIDUPKAN DENGAN TINTA — YEENKI'INK STUDIO — HIDUPKAN DENGAN TINTA —	
-							YEENKI'INK STUDIO — HIDUPKAN DENGAN TINTA — YEENKI'INK STUDIO — HIDUPKAN DENGAN TINTA —
+							YEENKI'INK STUDIO — BRING IT TO LIFE WITH INK — YEENKI'INK STUDIO — BRING IT TO LIFE WITH INK —	
+							YEENKI'INK STUDIO — BRING IT TO LIFE WITH INK — YEENKI'INK STUDIO — BRING IT TO LIFE WITH INK —
 						</div>
 					</div>
 
-					{/* SECTION KONTAK */}
+					{/* CONTACT SECTION */}
 					<section id="contact" className="py-24 bg-[#0a0a0a] relative">
 						<div className="container mx-auto px-6">
 							<div className="flex flex-col md:flex-row gap-16">
 								<div className="md:w-1/2">
 									<h2 className="font-display text-5xl md:text-7xl font-bold uppercase text-white mb-8">
-										Siap <br/> <span className="text-stroke-white text-transparent">Berkolaborasi?</span>
+										Ready to <br/> <span className="text-stroke-white text-transparent">Collaborate?</span>
 									</h2>
 									<p className="font-body text-gray-400 text-lg mb-10">
-										Mari berkolaborasi. Ceritakan kepada kami visi proyek Anda, dan Yeenki'Ink akan melaksanakannya dengan presisi.
+										Let's collaborate. Tell us about your project vision, and Yeenki'Ink will execute it with precision.
 									</p>
 									
 									<div className="flex flex-col gap-6">
@@ -677,13 +652,13 @@ export default function App() {
 											rel="noopener noreferrer"
 											className="inline-flex items-center justify-center gap-3 bg-[#5865F2] text-white font-display font-bold text-lg uppercase px-10 py-5 hover:bg-[#4752C4] transition-all duration-300 w-full rounded-lg shadow-xl"
 										>
-											<DiscordIcon size={24} color="currentColor" /> GABUNG SERVER DISCORD
+											<DiscordIcon size={24} color="currentColor" /> JOIN DISCORD SERVER
 										</a>
 									</div>
 								</div>
 
 								<div className="md:w-1/2">
-									<h3 className="font-display text-xl text-[#bd5582] uppercase tracking-widest mb-6">Terhubung dengan Kami</h3>
+									<h3 className="font-display text-xl text-[#bd5582] uppercase tracking-widest mb-6">Connect With Us</h3>
 									<div className="grid grid-cols-2 gap-4">
 										{socialLinks.map((link, idx) => (
 											<a	
@@ -703,7 +678,7 @@ export default function App() {
 						</div>
 					</section>
 
-                    {/* FOOTER */}
+                    {/* FOOTER (New Replacement) */}
                     <Footer setPage={setPage} />
 				</>
 			)}
