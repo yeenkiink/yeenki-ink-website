@@ -388,18 +388,6 @@ export default function App() {
 
 	return (
 		<div className="min-h-screen bg-[#0a0a0a] text-white font-sans selection:bg-[#bd5582] selection:text-white overflow-x-hidden">
-			<style>{`
-				@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&family=Inter:wght@300;400;600&display=swap');
-				.font-display { font-family: 'Oswald', sans-serif; }
-				.font-body { font-family: 'Inter', sans-serif; }
-				@keyframes marquee-right { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-				.animate-marquee-right { animation: marquee-right 40s linear infinite; }
-				@keyframes marquee-left { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
-				.animate-marquee-left { animation: marquee-left 40s linear infinite; }
-				@keyframes marquee-main-l-to-r { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-				.animate-marquee-main { animation: marquee-main-l-to-r 15s linear infinite; }
-				.text-stroke-white { -webkit-text-stroke: 1px rgba(255, 255, 255, 0.5); color: transparent; }
-			`}</style>
 
 			{/* --- NAVIGATION --- */}
 			<nav className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-[#0a0a0a]/90 backdrop-blur-md py-4 shadow-lg border-b border-neutral-900' : 'bg-transparent py-6'}`}>
