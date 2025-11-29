@@ -1,3 +1,42 @@
+/* Tailwind CSS Directives */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Custom Global CSS & Font Imports (Dipindahkan dari file React) */
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&family=Inter:wght@300;400;600&display=swap');
+
+/* Font Class Declarations */
+.font-display { font-family: 'Oswald', sans-serif; }
+.font-body { font-family: 'Inter', sans-serif; }
+
+/* Keyframe Animations for Marquee */
+@keyframes marquee-right { 
+    0% { transform: translateX(0); } 
+    100% { transform: translateX(-50%); } 
+}
+.animate-marquee-right { 
+    animation: marquee-right 40s linear infinite; 
+}
+
+@keyframes marquee-left { 
+    0% { transform: translateX(-50%); } 
+    100% { transform: translateX(0); } 
+}
+.animate-marquee-left { 
+    animation: marquee-left 40s linear infinite; 
+}
+
+@keyframes marquee-main-l-to-r { 
+    0% { transform: translateX(0); } 
+    100% { transform: translateX(-50%); } 
+}
+.animate-marquee-main { 
+    animation: marquee-main-l-to-r 15s linear infinite; 
+}
+
+/* Text Stroke Effect */
+.text-stroke-white { 
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.5); 
+    color: transparent; 
+}
